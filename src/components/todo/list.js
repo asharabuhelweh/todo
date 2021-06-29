@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import {  Form, Badge,Toast } from 'react-bootstrap'
 
 import If from './if'
 
@@ -21,36 +23,50 @@ function TodoList(props) {
 
   return (
     <>
-    <ul>
       {props.list.map(item => (
-        <li
-          className={`complete-${item.complete.toString()}`}
-          key={item._id}
-        >
-          <span style={{ cursor: 'pointer' }} onClick={() => props.handleComplete(item._id)}>
-            <p>
-              {item.text} : {item.assignee} , Difficulty:{item.difficulty}, Due Date:{item.date}
-            </p>
-          </span>
-          <button onClick={() => toggle(item._id)} value={item._id}>Edit</button>
-          <button id="delete" onClick={() => props.deleteItem(item._id)} >X</button>
+      <Toast  
+      key={item._id}
+      onClose={() => props.deleteItem(item._id)} value={item._id}
+      style={{'text-align': 'center' , 'position':'relative', 'left':'250px','bottom':'5px', "maxWidth": '150%' }}
 
-        </li>
+      >
+         <Toast.Header>
+         <Badge pill variant={item.complete ? 'danger' : 'success'} > {item.complete ? 'completed' : 'pending'} </Badge>{' '}
+      
+          <p className="mr-auto ml-4">{item.assignee}</p>
+        </Toast.Header>
+
+        <Toast.Body onClick={() => props.handleComplete(item._id)} style={{ cursor: 'pointer' }}>
+          <h6 className={`ml-3 ${item.complete ? 'text-muted text-decoration-line-through' : ''}`}>{item.text}</h6>
+          <br />
+          <p className="float-right" style={{ fontSize: '80%' }}>
+            Difficulty: {item.difficulty}
+          </p>
+          <br />
+        </Toast.Body>
+         
+      
+        </Toast>
       ))}
-    </ul>
+   
     <If condition={flag}>
-    <form onSubmit= {editItem}>
-    <label>
+    <Form onSubmit= {editItem}>
+    <Form.Group controlId="formBasicEmail">
+    <Form.Label>
     <span>Edit Task</span>
-    <input type="text" name="text"   />
-    </label>
-    <button type='submit' >Submit</button>
-    </form>
+    <Form.Control  type="text" name="text"   />
+    </Form.Label>
+    </Form.Group>
+  
+    <  Button variant="warning" type="submit" >Submit Edit</Button>
+    </Form>
 </If>
+
 </>
+
+   
   );
+
 }
-
-
 
 export default TodoList;

@@ -1,48 +1,63 @@
-import React, { useState } from 'react';
-
+import React from 'react';
+import  { Button } from 'react-bootstrap';
+import { Form, Card} from  'react-bootstrap'
+import  useForm from './useForm';
  function TodoForm(props)   {
 
- const [item , setItem] = useState({});
-   
-  
-  const handleInputChange = e => {
-    setItem(  {...item, [e.target.name]: e.target.value } );
-  };
+  const [handleInputChange , handleSubmit] = useForm(callback);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    e.target.reset();
-    props.handleSubmit(item);
-   setItem({});
-  };
 
-    return (
-      <>
-        <h3>Add Item</h3>
-        <form onSubmit={handleSubmit}>
-          <label>
-            <span>To Do Item</span>
-            <input
-              name="text"
-              placeholder="Add To Do List Item"
-              onChange={handleInputChange}
-            />
-          </label>
-          <label>
-            <span>Difficulty Rating</span>
-            <input defaultValue="1" type="range" min="1" max="5" name="difficulty" onChange={handleInputChange} />
-          </label>
-          <label>
+  function callback (data){
+    props.handleSubmit(data);
+
+  }
+
+  return (
+    <>
+    <Card style= {{'position':'relative', 'left':'70px'}}>
+    <Card.Header as="h3">Add Item</Card.Header>
+      <Card.Body>
+      <Form onSubmit={handleSubmit}  
+ >
+       
+      <Form.Group controlId="formBasicEmail">
+        <Form.Label>
+        <span>To Do Item</span>
+        <Form.Control
+          name="text"
+          placeholder="Add To Do List Item"
+            onChange={handleInputChange}
+          />
+        </Form.Label>
+        </Form.Group>
+
+            
+        <Form.Group controlId="formBasicEmail">
+        <Form.Label>
             <span>Assigned To</span>
-            <input type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange} />
-          </label>
-          <label>
+            <Form.Control type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange} />
+        </Form.Label>
+        </Form.Group>
+           
+        <Form.Group controlId="formBasicEmail">
+        <Form.Label>
             <span>Due Date</span>
-            <input type="date" name="date" placeholder="due date" onChange={handleInputChange} />
-          </label>
-          <button>Add Item</button>
-        </form>
-      </>
+            <Form.Control type="date" name="due"  onChange={handleInputChange} />
+        </Form.Label>
+        </Form.Group>
+          <Form.Group controlId="formBasicEmail">
+        <Form.Label>
+            <span>Difficulty Rating</span>
+            <Form.Control variant="info" defaultValue="1" type="range" min="1" max="5" name="difficulty" onChange={handleInputChange} />
+        </Form.Label>
+        </Form.Group>
+           
+          <Button style={{'width':'110px' ,'height':'45px'}} type='submit' variant="primary">Add Item</Button>
+
+          </Form>
+          </Card.Body>
+             </Card>
+             </>
     );
 }
 
