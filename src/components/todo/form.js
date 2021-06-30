@@ -1,6 +1,7 @@
 import React from 'react';
 import  { Button } from 'react-bootstrap';
 import { Form, Card} from  'react-bootstrap'
+import ContentSetting from './setting.jsx'
 import  useForm from './useForm';
  function TodoForm(props)   {
 
@@ -57,6 +58,7 @@ import  useForm from './useForm';
           </Form>
           </Card.Body>
              </Card>
+             <ContentSetting />
              </>
     );
 }

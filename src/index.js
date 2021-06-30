@@ -1,11 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import SettingsContext from './components/todo/setting-context'
 
 import App from './app.js';
 
 class Main extends React.Component {
   render() {
-    return <App />;
+    return(
+
+      <SettingsContext>
+        <App />
+      </SettingsContext>
+    )
+    
   }
 }
 
