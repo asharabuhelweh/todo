@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ToDo from './components/todo/todo.js';
-import Header from './components/todo/header.jsx';
+import Header from './header.jsx';
 
 
 export default class App extends React.Component {
