@@ -14,7 +14,12 @@ function TodoList(props) {
     setId(id)
   }
 
-  
+  const editItem = e => {
+    e.preventDefault();
+    toggle(id);
+    let newUpdate = e.target.text.value
+    props.editItem(newUpdate, id)
+  }
 
 
 
@@ -32,18 +37,28 @@ return (
         key={item._id}
       >
 
-        <Button variant="outline-light " onClick={() => props.deleteItem(item._id)} value={item._id}>Delete</Button>
+        <Button style={{'margin-right':'10px'}} variant="outline-light " onClick={() => props.deleteItem(item._id)} value={item._id}>Delete</Button>
+        <Button variant="outline-light" onClick={()=>toggle(item._id)} value={item._id}>Edit</Button>{' '}
         
 
 
-        <span style={{ "padding" : "10px"}} onClick={() => props.handleComplete(item._id)}>
+        <span style={{'padding':'10px'}} onClick={() => props.handleComplete(item._id)}>
           {item.text}  : {item.assignee} ,  difficulty : {item.difficulty} ,Due Date:{item.date}
         </span>
         </ListGroup.Item>
     ))}
     </ListGroup>
 
-  
+  <If condition={flag}>
+    <Form style={{  'textAlign':'center','margin':'30px','padding':'10px','position': 'relative', 'left': '250px', 'bottom': '5px', "maxWidth": '150%' }} onSubmit= {editItem}>
+
+    <Form.Label >
+      <span>Edit Task</span>
+      <Form.Control type="text" name="text"   />
+      </Form.Label>
+      <Button variant="outline-success" type='submit' > Edit</Button>
+      </Form>
+  </If>
   </>
 );
 }

@@ -74,7 +74,22 @@ function ToDo(props) {
     setList(list2);
   }, []);
 
-  
+  const editItem = (text , id)=>{
+    let item = list.filter ((item)=> item._id === id)[0] || {}
+    if (item) {
+      item.text = text;
+      let list4 = list.map (element =>{
+        if (element._id === id ){
+          return item 
+        }else {
+          return element
+        }
+      })
+      setList (list4)
+    }
+   
+   
+    }
 
   const deleteItem = (id) => {
     let list2 = list.filter((i) => i._id !== id) || {};
@@ -101,6 +116,7 @@ function ToDo(props) {
           <TodoList
             list={list}
             handleComplete={toggleComplete}
+            editItem = {editItem}
             deleteItem={deleteItem}
           />
         </div>
