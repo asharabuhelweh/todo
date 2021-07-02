@@ -92,3 +92,31 @@ body, html {
     }
 
 }
+
+
+  span > .page-link{
+      width: 20px;
+  }
+  div.row{
+      width: 50px;
+  }
+  .page-{
+      width: 20px;
+  }
+  .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    width: 27px;
+    margin-left: 30px;
+}
+
+.todo ul li {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    font-size: .75em;
+    margin: 1.75em 1em;
+    width: 274px;
+}

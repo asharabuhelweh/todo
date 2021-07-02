@@ -1,8 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
-import { Button } from 'react-bootstrap';
-import { Form, Badge, Toast } from 'react-bootstrap';
+import './todo.scss';
+
+import { Button,Form } from 'react-bootstrap';
+import {  Badge, Toast,Row } from 'react-bootstrap';
 import { SettingsContext } from './setting-context';
 import { Pagination } from 'react-bootstrap';
 
@@ -11,16 +13,53 @@ import If from './if'
 function TodoList(props) {
   const [flag, setFlag] = useState(false);
   const [id, setId] = useState('');
+  let list = props.list;
   const context = useContext(SettingsContext)
-
   const maxItems = context.itemPerPage;
-
   const [currentPage, setCurrentPage] = useState(1);
+  if (context.complete){
+    list = list.filter((task) => !task.complete);
+  }
+  let last = currentPage * context.itemPerPage;
+  let first = last - context.itemPerPage;
 
-  const numOfPages = props.list.length / maxItems + 1;
-  const last = currentPage * context.itemPerPage;
-  const first = last - context.itemPerPage;
-  const currentTasks = props.list.slice(first, last);
+   if (context.sortBy === 'text'){
+    list.sort ((a,b)=> {
+      if (a.text && b.text){
+        if (a.text.toLowerCase()  > b.text.toLowerCase() ) return 1
+        else if (a.text.toLowerCase()  === b.text.toLowerCase() ) return 0
+        else if (a.text.toLowerCase() < b.text.toLowerCase() ) return -1
+      }
+    })
+  }
+
+  else if (context.sortBy === 'difficulty'){
+    list.sort ((a,b)=> {
+      if (a.difficulty && b.difficulty){
+        if (a.difficulty > b.difficulty) return 1
+        else if (a.difficulty === b.difficulty) return 0
+        else if (a.difficulty < b.difficulty) return -1
+      }
+    })
+  }
+  
+  
+  else if (context.sortBy === 'assignee'){
+    list.sort ((a,b)=> {
+      if (a.assignee && b.assignee){
+        if (a.assignee.toLowerCase()  > b.assignee.toLowerCase() ) return 1
+        else if (a.assignee.toLowerCase()  === b.assignee.toLowerCase() ) return 0
+        else if (a.assignee.toLowerCase() < b.assignee.toLowerCase() ) return -1
+      }
+    })
+  }
+  
+  let currentTasks = list.slice(first, last);
+    let numOfPages =list.length / maxItems ;
+
+  context.setTaskSum(list.length);
+
+  
 
   let active = currentPage;
   let items = [];
@@ -50,7 +89,7 @@ function TodoList(props) {
         <Toast
           key={item._id}
           onClose={() => props.deleteItem(item._id)} value={item._id}
-          style={{ 'text-align': 'center', 'position': 'relative', 'left': '250px', 'bottom': '5px', "maxWidth": '150%' }}
+          style={{ 'text-align': 'center', 'position': 'relative', 'left': '250px', 'bottom': '5px','maxWidth':'200%','minWidth':'100%' }}
 
         >
           <Toast.Header>
@@ -71,22 +110,24 @@ function TodoList(props) {
 
         </Toast>
       ))}
-
-      <Pagination>
-        <Pagination.Prev
+        <Row>
+      <Pagination size="sm" style={{ 'text-align': 'center', 'position': 'relative', 'left': '250px', 'bottom': '5px', 'min-width': '5px' }}
+>
+        <Pagination.Prev size="sm" 
           disabled={active === 1 ? true : false}
           onClick={() => {
             setCurrentPage(currentPage - 1);
           }}
         />
         {items}
-        <Pagination.Next
+        <Pagination.Next 
           disabled={active > numOfPages - 1 ? true : false}
           onClick={() => {
             setCurrentPage(currentPage + 1);
           }}
         />
       </Pagination>
+      </Row>
 
       <If condition={flag}>
         <Form onSubmit={editItem}>
