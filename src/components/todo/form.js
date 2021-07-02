@@ -16,7 +16,7 @@ import  useForm from './useForm';
   return (
     <>
     <Card style= {{'position':'relative', 'left':'70px'}}>
-    <Card.Header as="h3">Add Item</Card.Header>
+    <Card.Header  as="h3">Add Item</Card.Header>
       <Card.Body>
       <Form onSubmit={handleSubmit}  
  >

@@ -1,8 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
-import { Button } from 'react-bootstrap';
-import { Form, Badge, Toast } from 'react-bootstrap';
+import './todo.scss';
+
+import { Button,Form } from 'react-bootstrap';
+import {  Badge, Toast,Row } from 'react-bootstrap';
 import { SettingsContext } from './setting-context';
 import { Pagination } from 'react-bootstrap';
 
@@ -53,7 +55,8 @@ function TodoList(props) {
   }
   
   let currentTasks = list.slice(first, last);
-  let numOfPages =currentTasks.length / maxItems + 1;
+    let numOfPages =list.length / maxItems ;
+
   context.setTaskSum(list.length);
 
   
@@ -86,7 +89,7 @@ function TodoList(props) {
         <Toast
           key={item._id}
           onClose={() => props.deleteItem(item._id)} value={item._id}
-          style={{ 'text-align': 'center', 'position': 'relative', 'left': '250px', 'bottom': '5px', "maxWidth": '150%' }}
+          style={{ 'text-align': 'center', 'position': 'relative', 'left': '250px', 'bottom': '5px','maxWidth':'200%','minWidth':'100%' }}
 
         >
           <Toast.Header>
@@ -107,22 +110,24 @@ function TodoList(props) {
 
         </Toast>
       ))}
-
-      <Pagination>
-        <Pagination.Prev
+        <Row>
+      <Pagination size="sm" style={{ 'text-align': 'center', 'position': 'relative', 'left': '250px', 'bottom': '5px', 'min-width': '5px' }}
+>
+        <Pagination.Prev size="sm" 
           disabled={active === 1 ? true : false}
           onClick={() => {
             setCurrentPage(currentPage - 1);
           }}
         />
         {items}
-        <Pagination.Next
+        <Pagination.Next 
           disabled={active > numOfPages - 1 ? true : false}
           onClick={() => {
             setCurrentPage(currentPage + 1);
           }}
         />
       </Pagination>
+      </Row>
 
       <If condition={flag}>
         <Form onSubmit={editItem}>

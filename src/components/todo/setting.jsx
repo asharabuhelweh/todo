@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { SettingsContext } from './setting-context';
 import { Button } from 'react-bootstrap';
-import { Form } from 'react-bootstrap';
+import { Form,Card } from 'react-bootstrap';
 
 const ContentSetting = (props) => {
     const context = useContext(SettingsContext)
@@ -15,22 +15,26 @@ const ContentSetting = (props) => {
     }
     return (
         <React.Fragment>
-            <h2 style= {{'position':'relative', 'left':'70px','padding-top':'30px','textAlign':'center'}}>Setting</h2>
-            <Form style= {{'position':'relative', 'left':'70px','textAlign':'center'}}>
+            <Card style= {{'position':'relative', 'left':'70px', 'marginTop':'30px','marginBottom':'30px'}}>
+    <Card.Header as="h3">Setting</Card.Header>
+      <Card.Body>
+            <Form >
 
-                <label name="itemPerPage"> Items per page </label>
+                <label name="itemPerPage"> Items Per Page </label>
                 <input type="number" id="itemPerPage" name="itemPerPage" onChange={itemPerPageHandler} /><br />
 
 
                 <Button variant="outline-primary" style={{ 'width': '100%', 'text-align': 'center', }} onClick={context.toggleHandler} >{context.complete ? 'Show Tasks' : 'Hide Completed Tasks'}</Button >
-                <Form.Label name="Sort By"> Sort Tasks By :
+                <Form.Label name="Sort By"> Sort Tasks By:
                     <select name="Sort By" title="Sort By" onChange={sortByHandler}>
-                        <option value="assignee" >assignee</option>
-                        <option value="difficulty" >difficulty</option>
-                        <option value="text" >text</option>
+                        <option value="assignee" >Assignee</option>
+                        <option value="difficulty" >Difficulty</option>
+                        <option value="text" >Text</option>
                     </select>
                 </Form.Label>
             </Form>
+            </Card.Body>
+            </Card>
         </React.Fragment>
     )
 }
