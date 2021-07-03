@@ -92,7 +92,7 @@ function TodoList(props) {
         <Toast
           key={item._id}
           onClose={() =>authContext.user.capabilities.includes('delete')? props.deleteItem(item._id) : false} value={item._id}
-          style={{ 'text-align': 'center', 'position': 'relative', 'left': '250px', 'bottom': '5px','maxWidth':'75%','minWidth':'50%' }}
+          style={{ 'text-align': 'center', 'position': 'relative', 'left': '130px', 'bottom': '5px','maxWidth':'75%','minWidth':'50%' }}
 
         >
           <Toast.Header>
@@ -113,7 +113,7 @@ function TodoList(props) {
 
         </Toast>
       ))}
-      <Pagination  style={{ 'text-align': 'center', 'position': 'relative', 'left': '150px', 'bottom': '5px'}}
+      <Pagination  style={{ 'text-align': 'center', 'position': 'relative', 'left': '5px', 'bottom': '5px'}}
 >
         <Pagination.Prev
           disabled={active === 1 ? true : false}
