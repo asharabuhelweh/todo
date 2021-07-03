@@ -110,9 +110,9 @@ function TodoList(props) {
 
         </Toast>
       ))}
-      <Pagination size="sm" style={{ 'text-align': 'center', 'position': 'relative', 'left': '250px', 'bottom': '5px'}}
+      <Pagination  style={{ 'text-align': 'center', 'position': 'relative', 'left': '150px', 'bottom': '5px'}}
 >
-        <Pagination.Prev size="sm" 
+        <Pagination.Prev
           disabled={active === 1 ? true : false}
           onClick={() => {
             setCurrentPage(currentPage - 1);
@@ -126,6 +126,7 @@ function TodoList(props) {
           }}
         />
       </Pagination>
+       
 
       <If condition={flag}>
         <Form onSubmit={editItem}>
