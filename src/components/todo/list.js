@@ -8,11 +8,14 @@ import {  Badge, Toast } from 'react-bootstrap';
 import { SettingsContext } from './setting-context';
 import { Pagination } from 'react-bootstrap';
 
-import If from './if'
+import If from './if.jsx';
+import Acl from './acl.jsx';
+import { AuthContext } from './auth-context';
 
 function TodoList(props) {
   const [flag, setFlag] = useState(false);
   const [id, setId] = useState('');
+  const authContext = useContext (AuthContext)
   let list = props.list;
   const context = useContext(SettingsContext)
   const maxItems = context.itemPerPage;
@@ -88,7 +91,7 @@ function TodoList(props) {
       {currentTasks.map(item => (
         <Toast
           key={item._id}
-          onClose={() => props.deleteItem(item._id)} value={item._id}
+          onClose={() =>authContext.user.capabilities.includes('delete')? props.deleteItem(item._id) : false} value={item._id}
           style={{ 'text-align': 'center', 'position': 'relative', 'left': '250px', 'bottom': '5px','maxWidth':'75%','minWidth':'50%' }}
 
         >
@@ -98,7 +101,7 @@ function TodoList(props) {
             <p className="mr-auto ml-4">{item.assignee}</p>
           </Toast.Header>
 
-          <Toast.Body onClick={() => props.handleComplete(item._id)} style={{ cursor: 'pointer' }}>
+          <Toast.Body onClick={() =>authContext.user.capabilities.includes('update')? props.handleComplete(item._id) : false} style={{ cursor: 'pointer' }}>
             <h6 className={`ml-3 ${item.complete ? 'text-muted text-decoration-line-through' : ''}`}>{item.text}</h6>
             <br />
             <p className="float-right" style={{ fontSize: '80%' }}>

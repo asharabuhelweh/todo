@@ -1,15 +1,40 @@
-import { Navbar } from 'react-bootstrap';
-import React from 'react';
+import React, { useContext } from 'react';
+import { Navbar, Nav } from 'react-bootstrap'
+import Register from './signup.jsx';
+import SignIn from './signin.jsx';
+import { Switch, Route } from "react-router-dom";
+import { AuthContext } from './auth-context.jsx';
+import If from './if.jsx';
 
-function Header  (props)  {
+function Header(props) {
+  const context = useContext(AuthContext);
+
   return (
     <>
-    
-    <Navbar bg="primary" variant="dark" expand="lg">
-      <Navbar.Brand href="#home">Home</Navbar.Brand>
-    </Navbar>
+
+      <Navbar bg="primary" variant="dark" style={{ 'padding': '20px' }} >
+        <Nav className="mr-auto">
+          <Nav.Link style={{'fontSize':'18px'}} href="/">Home</Nav.Link>
+          <div style={{ 'margin-left': '650px' }}>
+            <SignIn />
+          </div>
+          <If condition={!context.loggedIn}>
+            <Nav.Link style={{'paddingLeft':'20px', 'fontSize':'18px'}} href="/signup" onClick={context.handleShow}>Register</Nav.Link>
+            <Switch>
+              <Route exact path="/">
+                <Register />
+              </Route>
+            </Switch>
+          </If>
+
+        </Nav>
+      </Navbar>
     </>
   );
 };
 
 export default Header;
+
+
+
+

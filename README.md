@@ -27,3 +27,8 @@ Todo is cloud-based task management application. It allows users to manage their
 ### UML
 
  ![uml](./uml2.png)
+
+
+ ## `<Login />` and `<Auth />` (phase 4)
+ ![](um.png)
+ [deployment link](https://maybe-tommorow-is-better.netlify.app/)
