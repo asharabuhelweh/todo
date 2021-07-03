@@ -15,7 +15,7 @@ const ContentSetting = (props) => {
     }
     return (
         <React.Fragment>
-            <Card style= {{'position':'relative', 'left':'70px', 'marginTop':'30px','marginBottom':'30px'}}>
+            <Card style= {{'position':'relative', 'left':'90px', 'marginTop':'30px','marginBottom':'30px'}}>
     <Card.Header as="h3">Setting</Card.Header>
       <Card.Body>
             <Form >
